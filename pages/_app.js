@@ -1,6 +1,7 @@
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import "../styles/globals.css";
 import NavbarC from "../components/navbar";
+import { BaseSepoliaTestnet } from "@thirdweb-dev/chains";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.

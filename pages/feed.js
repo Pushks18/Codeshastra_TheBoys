@@ -1,7 +1,8 @@
 import { ConnectWallet, ThirdwebSDK } from "@thirdweb-dev/react";
 import { getUser } from "./api/auth/[...thirdweb]";
 import checkBalance from "../utils/checkbalance";
-
+import { useContract, useContractRead } from "@thirdweb-dev/react";
+import { CONTRACT_CERTIFY_ADDRESS } from "../lib/constants";
 import { cn } from "../utils/cn";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
@@ -57,18 +58,18 @@ const items = [
     header: <Skeleton />,
     icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
   },
-  {
-    title: "The Spirit of Adventure",
-    description: "Embark on exciting journeys and thrilling discoveries.",
-    header: <Skeleton />,
-    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
-  },
 ];
 
 const Feed = () => {
+  //   const { contract } = new useContract(CONTRACT_CERTIFY_ADDRESS);
+
+  //   const { data: courses } = useContractRead(contract, "getCourseInfo", []);
+
+  //   console.log("courses : ", courses);
+
   return (
-    <div className="mt-6 px-20">
-      <h1 className="text-3xl font-bold">Explore</h1>
+    <div className="mt-6 px-32 ">
+      <h1 className="text-4xl font-bold mb-6">Explore</h1>
       <BentoGrid className=" mx-auto">
         {items.map((item, i) => (
           <BentoGridItem
@@ -76,7 +77,6 @@ const Feed = () => {
             title={item.title}
             description={item.description}
             header={item.header}
-            icon={item.icon}
           />
         ))}
       </BentoGrid>

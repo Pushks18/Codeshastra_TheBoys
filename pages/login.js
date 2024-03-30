@@ -24,6 +24,7 @@ const Login = () => {
         {/* <h1 className="text-slate-700">Login</h1> */}
         {showConnectEmbed ? (
           <ConnectEmbed
+            className="mt-10"
             auth={{
               loginOptional,
               onLogin() {

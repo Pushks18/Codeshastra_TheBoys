@@ -15,9 +15,9 @@ export default function NavbarC() {
         <a class="flex title-font font-medium items-center text-gray-100 mb-4 md:mb-0">
           <span class="ml-3 text-xl ">Dapp-Learn</span>
         </a>
-        <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <nav class="md:ml-auto flex flex-wrap items-center  text-base justify-center">
           <a
-            class="mr-5 hover:text-gray-100"
+            class="mr-5 hover:text-gray-100 cursor-pointer	"
             onClick={() => {
               router.push("/profile");
             }}
@@ -25,7 +25,7 @@ export default function NavbarC() {
             Profile
           </a>
           <a
-            class="mr-5 hover:text-gray-900"
+            class="mr-5 hover:text-gray-100 cursor-pointer	"
             onClick={() => {
               router.push("/feed");
             }}
