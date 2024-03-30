@@ -17,7 +17,6 @@ export default function Home() {
 }
 
 export async function getServerSideProps(context) {
-  console.log("hello");
   const user = await getUser(context.req);
   if (!user) {
     return {
@@ -27,7 +26,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log("hello " + user);
+
   const secretKey = process.env.THIRDWEB_SECRET_KEY;
 
   if (!secretKey) {
