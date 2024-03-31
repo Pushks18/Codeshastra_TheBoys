@@ -9,6 +9,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.blurred-pdf-container {
+  filter: blur(5px); /* Adjust the blur intensity as needed */
+}
+
 a {
   color: #84309c;
   text-decoration: none;

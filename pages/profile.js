@@ -91,7 +91,7 @@ const Profile = ({ userAddress }) => {
   return (
     <>
       <section className="w-full flex justify-center">
-        <Web3Button
+        {/* <Web3Button
           contractAddress={CONTRACT_CERTIFY_ADDRESS}
           action={(contract) =>
             contract.call("createCourse", [
@@ -105,7 +105,7 @@ const Profile = ({ userAddress }) => {
           onSuccess={() => console.log("success")}
         >
           Add
-        </Web3Button>
+        </Web3Button> */}
         <div>
           <div class="container px-5 pt-10 mx-auto">
             <div class="flex items-center lg:w-3/5 mx-auto mb-10 border-gray-200 sm:flex-row flex-col">
@@ -134,6 +134,9 @@ const Profile = ({ userAddress }) => {
 
                   <div>
                     <Link href="#uploaded">Uploaded</Link>
+                  </div>
+                  <div>
+                    <Link href="/upload">Upload course</Link>
                   </div>
                 </div>
               </div>
