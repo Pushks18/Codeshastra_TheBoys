@@ -82,26 +82,24 @@ const Profile = ({ userAddress }) => {
     router.push("/login");
   }
 
-  //Get all course
-  //   const { contract } = new useContract(CONTRACT_CERTIFY_ADDRESS);
+  //Get owned courses
+  const { contract } = new useContract(CONTRACT_CERTIFY_ADDRESS);
 
-  //   const { data: courses } = useContractRead(contract, "getCourseInfo", [0]);
+  const { data: ownedCourses } = useContractRead(contract, "getMyCourses", []);
+  const { data: uploadedCourses } = useContractRead(
+    contract,
+    "getUploadedCourses",
+    []
+  );
 
-  //   console.log("courses : ", courses);
+  console.log("ownedCourses : ", ownedCourses);
+  console.log("uploadedCourses : ", uploadedCourses);
   return (
     <>
       <section className="w-full flex justify-center">
         <Web3Button
           contractAddress={CONTRACT_CERTIFY_ADDRESS}
-          action={(contract) =>
-            contract.call("createCourse", [
-              200,
-              "ADS",
-              "QmcdrLz9b23M67vENAREm6EkhtCUhDGNyuLBLY7J9pXmxx",
-              "asdasd",
-              "asdasdasd",
-            ])
-          }
+          action={async (contract) => contract.call("buyCourse", [1])}
           onSuccess={() => console.log("success")}
         >
           Add
@@ -146,14 +144,19 @@ const Profile = ({ userAddress }) => {
           Owned
         </h1>
         <BentoGrid className=" mx-auto">
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-            />
-          ))}
+          {ownedCourses && ownedCourses.length > 0 ? (
+            ownedCourses.map((course, i) => {
+              const imageUrl = "https://ipfs.io/ipfs/" + course.imageHash;
+              <BentoGridItem
+                key={i}
+                title={course.title}
+                description={""}
+                header={imageUrl}
+              />;
+            })
+          ) : (
+            <div className="text-center">No Owned Course</div>
+          )}
         </BentoGrid>
       </div>
       <div className="mt-2 px-32 ">
@@ -161,14 +164,19 @@ const Profile = ({ userAddress }) => {
           Uploaded
         </h1>
         <BentoGrid className=" mx-auto">
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-            />
-          ))}
+          {uploadedCourses && uploadedCourses.length > 0 ? (
+            uploadedCourses.map((course, i) => {
+              const imageUrl = "https://ipfs.io/ipfs/" + course.imageHash;
+              <BentoGridItem
+                key={i}
+                title={course.title}
+                description={""}
+                header={imageUrl}
+              />;
+            })
+          ) : (
+            <div className="text-center">No Uploaded Course</div>
+          )}
         </BentoGrid>
       </div>
     </>

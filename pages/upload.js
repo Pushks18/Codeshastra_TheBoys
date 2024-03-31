@@ -7,12 +7,14 @@ import { useState } from "react";
 import { uploadFileToIPFS } from "../pinata";
 import { Web3Button } from "@thirdweb-dev/react";
 import { CONTRACT_CERTIFY_ADDRESS } from "../lib/constants";
+import { ethers, BigNumber } from "ethers";
 
 const Upload = () => {
   const [imageHash, setImageHash] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [number, setNumber] = useState("");
   const [pdfHash, setPdfHash] = useState("");
   const [certificateHash, setCertificateHash] = useState("");
 
@@ -30,6 +32,22 @@ const Upload = () => {
     const certificateResponse = await uploadFileToIPFS(e.target.files[0]);
     setCertificateHash(certificateResponse.pinataURL);
   };
+
+  function isDecimal(number) {
+    return number.includes(".");
+  }
+
+  const adjustPrice = (number) => {
+    if (isDecimal(number)) {
+      setPrice(ethers.utils.parseUnits(number.toString(), "ether"));
+    } else {
+      setPrice(number);
+    }
+  };
+
+  useEffect(() => {
+    console.log(price);
+  }, [price]);
 
   return (
     <section class="text-gray-100 body-font w-full relative">
@@ -81,8 +99,11 @@ const Upload = () => {
               id="message"
               name="message"
               type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={number}
+              onChange={(e) => {
+                setNumber(e.target.value);
+                adjustPrice(e.target.value);
+              }}
               class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             ></input>
           </div>
@@ -125,12 +146,13 @@ const Upload = () => {
                 contract.call("createCourse", [
                   price,
                   title,
+                  description,
                   imageHash,
                   pdfHash,
                   certificateHash,
                 ])
               }
-              onSuccess={() => console.log("success")}
+              onSuccess={(e) => console.log(e)}
             >
               Upload Data
             </Web3Button>
